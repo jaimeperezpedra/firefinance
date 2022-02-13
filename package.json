@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "npm run build && nodemon dist/index.js",
+    "build": "babel server.js -d dist"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,9 @@
   },
   "type": "module",
   "devDependencies": {
+    "@babel/cli": "7.17.0",
+    "@babel/core": "7.17.2",
+    "@babel/preset-env": "7.16.11",
     "nodemon": "2.0.15"
   }
 }
