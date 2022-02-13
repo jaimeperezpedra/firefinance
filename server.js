@@ -29,7 +29,7 @@ const startApolloServer = async (typeDefs, resolvers) => {
 
   const port = 4012
   server.applyMiddleware({ app, path: '/' });
-  await new Promise(resolve => app.listen({ port }, resolve));
+  app.listen({ port });
   console.log(`🚀 Server ready at http://localhost:${port}`);
 }
 
