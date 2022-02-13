@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build && nodemon dist/index.js",
-    "build": "babel server.js -d dist"
+    "start": "nodemon --exec babel-node -- server.js",
+    "build": "babel-node -- server.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@babel/cli": "7.17.0",
     "@babel/core": "7.17.2",
+    "@babel/node": "7.16.8",
     "@babel/preset-env": "7.16.11",
     "nodemon": "2.0.15"
   }
