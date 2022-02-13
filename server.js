@@ -14,21 +14,23 @@ import { resolvers } from "./src/resolvers.js";
 const app = express();
 app.use(cors())
 
-const server = new ApolloServer({
-   typeDefs,
-   resolvers,
-   context: ({ req }) => {
-     return {
-        headers: req.headers,
-        db
-     };
-   }
-});
+const startApolloServer = async (typeDefs, resolvers) => {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => {
+      return {
+         headers: req.headers,
+         db
+      };
+    }
+ });
+  await server.start()
 
-server.start().then(res => {
   const port = 4012
-  server.applyMiddleware({ app });
-  app.listen({ port }, () => {
-    console.log(`Server has started 🚀 http://localhost:${port}/graphql`);
-  });
-});
+  server.applyMiddleware({ app, path: '/' });
+  await new Promise(resolve => app.listen({ port }, resolve));
+  console.log(`🚀 Server ready at http://localhost:${port}`);
+}
+
+startApolloServer(typeDefs, resolvers);
