@@ -15,11 +15,12 @@ export class FirebaseRealData extends RESTDataSource {
     return await this.get(`/bbdd/expenses/${id}.json`);
   }
 
-  async addExpense({ input }) {
+  async addExpense({ input, date }) {
+    console.log(input, date);
     return await this.post(`/bbdd/expenses.json`, { ...input, date })
   }
 
-  async deleteExpense({ input }) {
-    return await this.delete(`/bbdd/expenses/${input}.json`)
+  async deleteExpense({ id }) {
+    return await this.delete(`/bbdd/expenses/${id}.json`)
   }
 }
