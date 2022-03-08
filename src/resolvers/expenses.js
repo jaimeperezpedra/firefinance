@@ -26,7 +26,7 @@ const expense =  async (_, { id }, { dataSources }) => {
 
 const createExpense = async(_, { input }, { dataSources }) => {
   const date = +new Date();
-  const data = await dataSources.FirebaseRealData.addExpense({ ...input, date });
+  const data = await dataSources.FirebaseRealData.addExpense({ input, date });
   return data.name;
 }
 
