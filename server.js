@@ -7,9 +7,9 @@ if (!global.fetch) {
 	global.fetch = fetch;
 }
 
-import { db } from "./db.js";
 import { typeDefs } from "./src/schemas.js";
 import { resolvers } from "./src/resolvers.js";
+import dataSources from './src/data-sources/index.js';
 
 const app = express();
 app.use(cors())
@@ -18,10 +18,10 @@ const startApolloServer = async (typeDefs, resolvers) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    dataSources,
     context: ({ req }) => {
       return {
          headers: req.headers,
-         db
       };
     }
  });

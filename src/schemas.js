@@ -31,13 +31,13 @@ export const typeDefs = gql`
   }
 
   type Query {
-    expenses(input: ExpenseFilter): [Expense]
+    expenses(input: ExpenseFilter!): [Expense]
     expense(id: ID!): Expense
   }
 
   type Mutation {
     createExpense(input: ExpenseInput!): ID
-    deleteExpense(input: ID!): ID
+    deleteExpense(id: ID!): ID
     createUser(input: UserCredentials!): AuthToken
     loginUser(input: UserCredentials!): AuthToken
   }
@@ -51,8 +51,8 @@ export const typeDefs = gql`
   }
 
   input ExpenseFilter {
-    year: Int
-    month: Int
+    year: Int!
+    month: Int!
   }
 
   input UserCredentials {
