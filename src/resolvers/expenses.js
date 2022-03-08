@@ -1,12 +1,11 @@
-import axios from 'axios';
 import { expenseProfile } from '../expenseProfile.js'
 
-const expenses = async (_, { input }) => {
+const expenses = async (_, { input }, { dataSources }) => {
   const { month, year } = input;
   const startAt = +new Date(`${month}/1/${year}`)
   const endAt = +new Date(`${month + 1}/1/${year}`)
-  let expenses = `/bbdd/expenses.json?orderBy="date"&startAt=${startAt}&endAt=${endAt}`
-  const { data } = await axios.get(expenses)
+  const data = await dataSources.FirebaseRealData.getExpenses({ startAt, endAt });
+
   if (data.length === 0) {
     return [];
   }
@@ -19,23 +18,21 @@ const expenses = async (_, { input }) => {
   return mapsKeys;
 };
 
-const expense =  async (_, input) => {
-  let expenses = `/bbdd/expenses/${input.id}.json`
-  const { data } = await axios.get(expenses); 
+const expense =  async (_, { id }, { dataSources }) => {
+  const data = await dataSources.FirebaseRealData.getExpense({id}); 
   const graphqlExpense = expenseProfile(data);
   return graphqlExpense;
 };
 
-const createExpense = async(_, { input }) => {
+const createExpense = async(_, { input }, { dataSources }) => {
   const date = +new Date();
-  const { data } = await axios.post(`/bbdd/expenses.json`, { ...input, date });
+  const data = await dataSources.FirebaseRealData.addExpense({ ...input, date });
   return data.name;
 }
 
-const deleteExpense = async(_, { input }) => {
-  const url = `/bbdd/expenses/${input}.json`
-  await axios.delete(url);
-  return input;
+const deleteExpense = async(_, { id }, { dataSources }) => {
+  await dataSources.FirebaseRealData.deleteExpense({id});
+  return id;
 }
 
 export const expensesResolvers = {
