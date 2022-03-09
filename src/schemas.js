@@ -4,7 +4,7 @@ export const typeDefs = gql`
   type Expense {
     id: ID
     currency: String
-    price: Int
+    price: Float
     category: String
     description: String
     date: String
@@ -44,7 +44,7 @@ export const typeDefs = gql`
 
   input ExpenseInput {
     currency: String
-    price: Int
+    price: Float
     category: String
     description: String
     date: String
