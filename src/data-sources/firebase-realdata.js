@@ -16,7 +16,6 @@ export class FirebaseRealData extends RESTDataSource {
   }
 
   async addExpense({ input, date }) {
-    console.log(input, date);
     return await this.post(`/bbdd/expenses.json`, { ...input, date })
   }
 
