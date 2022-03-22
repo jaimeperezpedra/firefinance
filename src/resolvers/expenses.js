@@ -1,10 +1,10 @@
 import { expenseProfile } from '../expenseProfile.js'
 
-const expenses = async (_, { input }, { dataSources }) => {
+const expenses = async (_, { input }, { dataSources, headers }) => {
   const { month, year } = input;
   const startAt = +new Date(`${month}/1/${year}`)
   const endAt = +new Date(`${month + 1}/1/${year}`)
-  const data = await dataSources.FirebaseRealData.getExpenses({ startAt, endAt });
+  const data = await dataSources.FirebaseRealData.getExpenses({ startAt, endAt }, headers.authorization);
 
   if (data.length === 0) {
     return [];

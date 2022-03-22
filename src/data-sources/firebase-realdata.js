@@ -7,8 +7,8 @@ export class FirebaseRealData extends RESTDataSource {
     this.baseURL = 'https://finance-1d797-default-rtdb.firebaseio.com';
   }
 
-  async getExpenses({ startAt, endAt }) {
-    return await this.get(`/bbdd/expenses.json?orderBy="date"&startAt=${startAt}&endAt=${endAt}`);
+  async getExpenses({ startAt, endAt }, auth) {
+    return await this.get(`/bbdd/expenses.json?orderBy="date"&startAt=${startAt}&endAt=${endAt}&auth=${auth}`);
   }
 
   async getExpense({ id }) {
